@@ -8,6 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
   Keyboard,
+  ScrollView,
 } from "react-native";
 import Task from "./components/Task";
 export default function App() {
@@ -28,6 +29,8 @@ export default function App() {
   };
   return (
     <View style={styles.container}>
+      <StatusBar style={'light'} barStyle="dark-content" />
+
       <View style={styles.tasksContainer}>
         <Text style={styles.mainTitle}>Current Tasks</Text>
         <View style={styles.tasks}>
@@ -47,6 +50,7 @@ export default function App() {
         <TextInput
           style={styles.input}
           placeholder={"New Task"}
+          placeholderTextColor={"#F8EBFF"}
           value={task}
           onChangeText={(text) => setTask(text)}
         />
@@ -63,7 +67,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#e8eaed",
+    backgroundColor: "#10002B",
   },
   tasksContainer: {
     paddingTop: 80,
@@ -72,6 +76,7 @@ const styles = StyleSheet.create({
   mainTitle: {
     fontSize: 24,
     fontWeight: "bold",
+    color: "#F8EBFF",
   },
   tasks: {
     marginTop: 30,
@@ -88,24 +93,25 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 15,
     maxWidth: 250,
-    backgroundColor: "#fff",
+    backgroundColor: "#34085E",
     borderRadius: 60,
-    borderColor: "#c0c0c0",
-    borderWidth: 1,
+    borderColor: "#16003D",
+    borderWidth: 1.5,
     width: 250,
+    textAlign: "center",
   },
   addContainer: {
     width: 60,
     height: 60,
     borderRadius: 60,
-    backgroundColor: "#fff",
+    backgroundColor: "#34085E",
     justifyContent: "center",
     alignItems: "center",
-    borderColor: "#C0C0C0",
+    borderColor: "#16003D",
     borderWidth: 1,
   },
   addText: {
     fontSize: 20,
-    color: "#0Aaccc",
+    color: "#F8EBFF",
   },
 });

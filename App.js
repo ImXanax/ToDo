@@ -1,5 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
+import * as SplashScreen from "expo-splash-screen";
+import { useFonts } from "@expo-google-fonts/varela-round";
 import {
   KeyboardAvoidingView,
   StyleSheet,
@@ -11,25 +13,34 @@ import {
   ScrollView,
 } from "react-native";
 import Task from "./components/Task";
+
 export default function App() {
+  // fonts
+  let [fontsLoaded, err] = useFonts({
+    VarelaRound: require("./assets/fonts/VarelaRound-Regular.ttf"),
+  });
+
+  // useStates
   const [task, setTask] = useState();
   const [taskItems, setTaskItems] = useState([]);
+
   // functions
   const newTaskHandler = () => {
     Keyboard.dismiss();
     setTaskItems([...taskItems, task]);
     setTask(null);
-    console.log("new task handler fired");
   };
   const completedTasks = (i) => {
     let itemCp = [...taskItems];
     itemCp.splice(i, 1);
     setTaskItems(itemCp);
-    console.log("completed tasks fired");
   };
+  if (!fontsLoaded) {
+    return null;
+  }
   return (
     <View style={styles.container}>
-      <StatusBar style={'light'} barStyle="dark-content" />
+      <StatusBar style={"light"} barStyle="dark-content" />
 
       <View style={styles.tasksContainer}>
         <Text style={styles.mainTitle}>Current Tasks</Text>
@@ -50,13 +61,13 @@ export default function App() {
         <TextInput
           style={styles.input}
           placeholder={"New Task"}
-          placeholderTextColor={"#F8EBFF"}
+          placeholderTextColor={"#B5AFB8"}
           value={task}
           onChangeText={(text) => setTask(text)}
         />
         <TouchableOpacity onPress={() => newTaskHandler()}>
           <View style={styles.addContainer}>
-            <Text style={styles.addText}>+</Text>
+            <Text style={styles.addText}>-l||l-</Text>
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>
@@ -68,6 +79,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#10002B",
+    fontFamily: "VarelaRound",
   },
   tasksContainer: {
     paddingTop: 80,
@@ -77,6 +89,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "#F8EBFF",
+    borderBottomColor: "#350066",
+    borderBottomWidth: 1,
   },
   tasks: {
     marginTop: 30,
@@ -99,6 +113,7 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     width: 250,
     textAlign: "center",
+    color: "#fff",
   },
   addContainer: {
     width: 60,
@@ -113,5 +128,6 @@ const styles = StyleSheet.create({
   addText: {
     fontSize: 20,
     color: "#F8EBFF",
+    fontFamily: "VarelaRound",
   },
 });

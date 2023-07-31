@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    margin: 20,
+    margin:7
   },
   itemLeft: {
     flexDirection: "row",

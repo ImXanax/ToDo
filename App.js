@@ -1,5 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
+import { Constants } from 'expo';
+import { Platform } from 'react-native';
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "@expo-google-fonts/varela-round";
 import {
@@ -15,7 +17,7 @@ import {
 import Task from "./components/Task";
 
 export default function App() {
-  // fonts
+  // fontsw
   let [fontsLoaded, err] = useFonts({
     VarelaRound: require("./assets/fonts/VarelaRound-Regular.ttf"),
   });
@@ -27,8 +29,9 @@ export default function App() {
   // functions
   const newTaskHandler = () => {
     Keyboard.dismiss();
+   
     setTaskItems([...taskItems, task]);
-    setTask(null);
+    setTask('');
   };
   const completedTasks = (i) => {
     let itemCp = [...taskItems];
@@ -44,15 +47,17 @@ export default function App() {
 
       <View style={styles.tasksContainer}>
         <Text style={styles.mainTitle}>Current Tasks</Text>
-        <View style={styles.tasks}>
-          {taskItems.map((item, i) => {
-            return (
-              <TouchableOpacity key={i} onPress={() => completedTasks(i)}>
-                <Task text={item} />
-              </TouchableOpacity>
-            );
-          })}
-        </View>
+        <ScrollView style={styles.scrollView}>
+          <View style={styles.tasks}>
+            {taskItems.map((item, i) => {
+              return (
+                <TouchableOpacity key={i} onPress={() => completedTasks(i)}>
+                  <Task text={item} />
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        </ScrollView>
       </View>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -65,6 +70,7 @@ export default function App() {
           value={task}
           onChangeText={(text) => setTask(text)}
         />
+        
         <TouchableOpacity onPress={() => newTaskHandler()}>
           <View style={styles.addContainer}>
             <Text style={styles.addText}>-l||l-</Text>
@@ -78,7 +84,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#10002B",
+    backgroundColor: "#000000",
     fontFamily: "VarelaRound",
   },
   tasksContainer: {
@@ -89,7 +95,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "#F8EBFF",
-    borderBottomColor: "#350066",
+    borderBottomColor: "#AA23FF",
     borderBottomWidth: 1,
   },
   tasks: {
@@ -130,4 +136,10 @@ const styles = StyleSheet.create({
     color: "#F8EBFF",
     fontFamily: "VarelaRound",
   },
+  scrollView:{
+    //backgroundColor: "#ffffff",
+    marginHorizontal: 0,
+    marginVertical: 165,
+    marginTop:0
+  }
 });
